@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Holzhaus mit Chat</title>
+  <style>
+    /* Hintergrund-Iframe (Holzhaus) */
+    #background-iframe {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      z-index: 0;
+    }
+
+    /* Chat-Button unten rechts, größer und weiter heraus */
+    #chat-toggle {
+      position: fixed;
+      bottom: 60px;  /* weiter aus der Ecke */
+      right: 60px;   /* weiter aus der Ecke */
+      width: 80px;   /* größer */
+      height: 80px;  /* größer */
+      border-radius: 50%;
+      background: #007bff;
+      color: #fff;
+      border: none;
+      font-size: 20px;  /* größere Beschriftung */
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+
+    /* Chat-Fenster, initial ausserhalb (größer) */
+    #chat-container {
+      position: fixed;
+      bottom: 150px;         /* 60px (Button bottom) + 80px (Button height) + 10px Abstand */
+      right: -440px;         /* 400px Breite + 40px Puffer */
+      width: 400px;          /* noch breiter */
+      height: 700px;         /* noch höher */
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+      overflow: hidden;
+      transition: right 0.3s ease-in-out;
+      z-index: 1;
+    }
+    /* offen: fährt ins Bild */
+    #chat-container.open {
+      right: 60px;           /* passt zum Button */
+    }
+
+    /* Schließen-Knopf im Chat */
+    #chat-close {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: transparent;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      color: #666;
+      z-index: 2;
+    }
+
+    /* Bot-Iframe füllt Container */
+    #chat-iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Hintergrund: Holzhaus-Webseite -->
+  <iframe
+    id="background-iframe"
+    src="https://holzhaus.com"
+    title="Holzhaus Hintergrund">
+  </iframe>
+
+  <!-- Button zum Öffnen des Chats -->
+  <button id="chat-toggle">Chat</button>
+
+  <!-- Chat-Fenster, das hereinfährt -->
+  <div id="chat-container">
+    <button id="chat-close">&times;</button>
+    <iframe
+      id="chat-iframe"
+      src="https://chatthing.ai/de/bots/7684f02e-f045-46c0-9f7a-5afcaa397091/embed"
+      allow="clipboard-write; microphone;"
+      title="Chatbot">
+    </iframe>
+  </div>
+
+  <script>
+    const toggleBtn = document.getElementById('chat-toggle');
+    const chatContainer = document.getElementById('chat-container');
+    const closeBtn = document.getElementById('chat-close');
+
+    toggleBtn.addEventListener('click', () => {
+      chatContainer.classList.toggle('open');
+    });
+    closeBtn.addEventListener('click', () => {
+      chatContainer.classList.remove('open');
+    });
+  </script>
+
+</body>
+</html>
